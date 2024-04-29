@@ -21,4 +21,13 @@ public interface BlogMapper {
 	
 	// 게시글 전체 삭제
 	public void deleteAll() throws DataAccessException;
+	
+	// 글 하나 조회
+	public Article findById(int id) throws DataAccessException;
+	
+	// 글 삭제
+	public void deleteById(int id) throws DataAccessException;
+	
+	// 글 수정
+	public void update(Article article) throws DataAccessException;
 }

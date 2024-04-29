@@ -29,4 +29,22 @@ public class BlogMapperImpl implements BlogRepository{
 	public List<Article> findAll(){
 		return blogMapper.findAll();
 	}
+	
+	// 글 하나 조회
+	@Override
+	public Article findById(int id) {
+		return blogMapper.findById(id);
+	}
+	
+	// 글 삭제
+	@Override
+	public void deleteById(int id) {
+		blogMapper.deleteById(id);
+	}
+	
+	// 글 수정
+	@Override
+	public void update(Article article) {
+		blogMapper.update(article);
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -25,9 +26,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.shinsunyoung.domain.Article;
 import me.shinsunyoung.dto.ArticleForm;
 import me.shinsunyoung.repository.BlogMapperImpl;
+import me.shinsunyoung.repository.BlogRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class BlogApiControllerTest {
 	
 	@Autowired
@@ -40,14 +43,14 @@ class BlogApiControllerTest {
 	private WebApplicationContext context;
 	
 	@Autowired
-	BlogMapperImpl blogMapperImpl;
+	BlogRepository blogRepository;
 
 	
 	// 테스트에 작성한 코드가 실제 db에 적용이 된다.!!!!
 	@BeforeEach
 	public void mockMvcSetUp() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-		blogMapperImpl.deleteAll();
+		blogRepository.deleteAll();
 	}
 	
 	
@@ -70,7 +73,7 @@ class BlogApiControllerTest {
 		// then
 		result.andExpect(status().isCreated());
 		
-		List<Article> articles = blogMapperImpl.findAll();
+		List<Article> articles = blogRepository.findAll();
 		
 		assertThat(articles.get(0).getTitle()).isEqualTo(title);
 		assertThat(articles.get(0).getContent()).isEqualTo(content);

@@ -5,9 +5,11 @@ import org.springframework.stereotype.Component;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Component
 @Getter
+@Setter
 @NoArgsConstructor
 public class Article {
 	
@@ -18,13 +20,6 @@ public class Article {
 	@Builder
 	public Article(String title, String content) {
 		this.title = title;
-		this.content = content;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public void setContent(String content) {
 		this.content = content;
 	}
 	
