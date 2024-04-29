@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="me.shinsunyoung.repository.MemberRepository">
+    <resultMap id="memberResultMap" type="Member">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="memberResultMap">
+        SELECT * FROM member
+    </select>
+    
+    <select id="selectOne" resultType="Member" parameterType="int">
+    	SELECT * FROM member where id=#{id}
+    </select>
+    
+    <select id="lastOne" resultType="Member">
+    	SELECT * FROM member ORDER BY id DESC LIMIT 1
+    </select>
+    
+    <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member (name) VALUES (#{name})
+    </insert>
+    
+    <delete id="deleteAll">
+    	delete from member 
+    </delete>
+</mapper>
